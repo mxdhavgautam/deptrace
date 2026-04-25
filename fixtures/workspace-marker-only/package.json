@@ -1,0 +1,6 @@
+{
+  "name": "fixture-workspace-marker-only",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}

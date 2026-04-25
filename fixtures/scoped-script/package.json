@@ -1,0 +1,9 @@
+{
+  "name": "fixture-scoped-script",
+  "dependencies": {
+    "@scope/pkg": "^1.0.0"
+  },
+  "scripts": {
+    "use": "npx @scope/pkg --flag"
+  }
+}

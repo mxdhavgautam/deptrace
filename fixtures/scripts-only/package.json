@@ -1,0 +1,9 @@
+{
+  "name": "fixture-scripts-only",
+  "dependencies": {
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production tsc -p tsconfig.json"
+  }
+}

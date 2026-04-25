@@ -1,0 +1,6 @@
+{
+  "name": "fixture-config-alias",
+  "devDependencies": {
+    "eslint-plugin-react": "^7.37.0"
+  }
+}

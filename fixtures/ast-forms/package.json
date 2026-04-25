@@ -1,0 +1,6 @@
+{
+  "name": "fixture-ast-forms",
+  "dependencies": {
+    "pkg": "^1.0.0"
+  }
+}

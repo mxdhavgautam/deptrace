@@ -1,0 +1,11 @@
+import type { TypeA } from "pkg";
+export { TypeA } from "pkg";
+export * from "pkg/sub";
+import value = require("pkg/value");
+const resolved = require.resolve("pkg");
+jest.mock("pkg/mock");
+vi.mock("pkg/vi");
+jest.requireActual("pkg/actual");
+await import("pkg/dynamic");
+const name = "pkg";
+await import(name);

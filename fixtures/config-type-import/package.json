@@ -1,0 +1,6 @@
+{
+  "name": "fixture-config-type-import",
+  "dependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}

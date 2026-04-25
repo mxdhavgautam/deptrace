@@ -1,0 +1,9 @@
+{
+  "name": "fixture-workspace-root",
+  "workspaces": [
+    "apps/*"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}

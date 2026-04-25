@@ -1,0 +1,13 @@
+{
+  "name": "fixture-basic",
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "@types/node": "^20.0.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "fixture-verdict-buckets",
+  "dependencies": {
+    "duplicate-pkg": "^1.0.0",
+    "optional-pkg": "^1.0.0"
+  },
+  "devDependencies": {
+    "duplicate-pkg": "^1.0.0"
+  },
+  "peerDependencies": {
+    "peer-pkg": "^1.0.0"
+  },
+  "optionalDependencies": {
+    "optional-pkg": "^1.0.0"
+  }
+}
