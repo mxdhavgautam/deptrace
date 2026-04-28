@@ -1,3 +1,4 @@
+![deptrace preview banner](deptrace-preview.jpg)
 # deptrace
 
 Explain where a JavaScript or TypeScript dependency is used.
