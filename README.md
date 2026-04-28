@@ -9,7 +9,7 @@ whether it appears in scripts/config, and what a cautious next step might be.
 The npm package is scoped because the unscoped `deptrace` name is already taken:
 
 ```bash
-npx @mxdhavgautam/deptrace lodash
+npx @mxdhavgautam/deptrace
 ```
 
 ## Usage
