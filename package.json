@@ -1,7 +1,7 @@
 {
   "name": "@mxdhavgautam/deptrace",
   "version": "0.1.0",
-  "description": "Explain where a JavaScript or TypeScript dependency is used.",
+  "description": "A lightweight Node CLI tool to explain where a JavaScript/TypeScript dependency is being used in your project.",
   "type": "module",
   "bin": {
     "deptrace": "./dist/cli.js"
@@ -49,5 +49,5 @@
   "bugs": {
     "url": "https://github.com/mxdhavgautam/deptrace/issues"
   },
-  "homepage": "https://github.com/mxdhavgautam/deptrace#readme"
+  "homepage": "https://github.com/mxdhavgautam/deptrace"
 }
