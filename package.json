@@ -1,6 +1,6 @@
 {
   "name": "@mxdhavgautam/deptrace",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A lightweight Node CLI tool to explain where a JavaScript/TypeScript dependency is being used in your project.",
   "type": "module",
   "bin": {
