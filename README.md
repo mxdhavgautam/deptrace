@@ -42,26 +42,46 @@ analysis, or bundle inspection.
 
 ## Example
 
+Ran Command:
+```bash
+deptrace bcryptjs
+```
+Output:
 ```txt
-lodash@4.17.21
+bcryptjs@3.0.3
 
 Package
   status: direct dependency
   declared in: dependencies
-  version range: dependencies ^4.17.21
-  installed: 4.17.21
+  version range: dependencies ^3.0.3
+  installed: 3.0.3
 
 Usage Summary
-  source files: 2
+  source files: 0
   test files: 0
   config files: 0
   script matches: 0
   type-only imports: 0
 
 Imports
-  src/components/SearchBox.tsx:3
-    debounce from lodash (esm-named-import, source)
-    import { debounce } from "lodash";
+  none detected
+
+Script Usage
+  none detected
+
+Config Usage
+  none detected
+
+Runtime Signal
+  none detected
+
+Verdict
+  REMOVE_CANDIDATE
+  confidence: medium
+  reasons:
+    - No source, test, config, or script usage was detected.
+  next steps:
+    - Remove it in a branch and run install, typecheck, tests, and build.
 ```
 
 ## JSON
