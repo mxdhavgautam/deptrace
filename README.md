@@ -33,6 +33,8 @@ selected JS/TS package root using local evidence:
 - installed package metadata from `node_modules`
 - source imports, requires, re-exports, dynamic string imports, and type-only imports
 - package script matches, including installed package binary names
+
+And outputs them alongside:
 - config matches with confidence levels
 - workspace-root warnings
 - cautious verdicts like `KEEP`, `REMOVE_CANDIDATE`, `MOVE_TO_DEV_CANDIDATE`, and `INSPECT`
