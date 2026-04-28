@@ -97,6 +97,28 @@ describe("analyzeDependency", () => {
     expect(report.verdict.code).toBe("MOVE_TO_DEV_CANDIDATE");
   });
 
+  it("parses declaration files in dts mode without noisy const initializer warnings", async () => {
+    const report = await analyzeDependency({
+      cwd: fixture("dts-declaration"),
+      target: "@types/node",
+      toolVersion: "0.1.0-test",
+    });
+
+    expect(report.imports).toContainEqual(
+      expect.objectContaining({
+        file: "src/generated/index.d.ts",
+        kind: "triple-slash-reference",
+        isTypeOnly: true,
+      }),
+    );
+    expect(report.diagnostics).not.toContainEqual(
+      expect.objectContaining({
+        code: "parse-error",
+        file: "src/generated/index.d.ts",
+      }),
+    );
+  });
+
   it("AST-scans JS/TS config files so type-only config imports keep line evidence", async () => {
     const report = await analyzeDependency({
       cwd: fixture("config-type-import"),
@@ -168,6 +190,31 @@ describe("analyzeDependency", () => {
       expect.objectContaining({
         code: "package-not-installed",
         message: expect.stringContaining("package-lock.json contains version 4.17.21"),
+      }),
+    );
+  });
+
+  it("resolves installed metadata from hoisted workspace node_modules", async () => {
+    const report = await analyzeDependency({
+      cwd: path.join(fixture("hoisted-workspace"), "apps", "web"),
+      target: "tool-pkg",
+      toolVersion: "0.1.0-test",
+    });
+
+    expect(report.installation).toMatchObject({
+      installed: true,
+      version: "2.3.4",
+      lockfileVersion: null,
+      binNames: ["tool-pkg"],
+    });
+    expect(report.installation.packageJsonPath).toContain(
+      path.join("fixtures", "hoisted-workspace", "node_modules", "tool-pkg", "package.json"),
+    );
+    expect(report.scripts).toContainEqual(
+      expect.objectContaining({
+        scriptName: "build",
+        matchedToken: "tool-pkg",
+        matchKind: "bin",
       }),
     );
   });

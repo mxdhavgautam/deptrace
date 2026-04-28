@@ -1,0 +1,7 @@
+{
+  "name": "dts-declaration",
+  "private": true,
+  "devDependencies": {
+    "@types/node": "^24.0.0"
+  }
+}

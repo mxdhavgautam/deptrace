@@ -6,9 +6,13 @@ export async function getInstalledPackage(cwd: string, packageName: string): Pro
   installation: InstallationInfo;
   diagnostics: Diagnostic[];
 }> {
-  const packageJsonPath = path.join(cwd, "node_modules", ...packageName.split("/"), "package.json");
+  const packageJsonPath = await findInstalledPackageJson(cwd, packageName);
 
   try {
+    if (!packageJsonPath) {
+      throw new Error("Package metadata not found in node_modules.");
+    }
+
     const packageJson = JSON.parse(await readFile(packageJsonPath, "utf8")) as PackageJson;
     const binNames = getBinNames(packageJson, packageName);
 
@@ -46,6 +50,20 @@ export async function getInstalledPackage(cwd: string, packageName: string): Pro
   }
 }
 
+async function findInstalledPackageJson(cwd: string, packageName: string): Promise<string | null> {
+  for (const directory of ancestorDirectories(cwd)) {
+    const candidate = path.join(directory, "node_modules", ...packageName.split("/"), "package.json");
+    try {
+      await readFile(candidate, "utf8");
+      return candidate;
+    } catch {
+      continue;
+    }
+  }
+
+  return null;
+}
+
 function getBinNames(packageJson: PackageJson, packageName: string): string[] {
   const bin = packageJson.bin;
 
@@ -61,19 +79,40 @@ function getBinNames(packageJson: PackageJson, packageName: string): string[] {
 }
 
 async function getPackageLockVersion(cwd: string, packageName: string): Promise<string | null> {
-  try {
-    const raw = await readFile(path.join(cwd, "package-lock.json"), "utf8");
-    const lock = JSON.parse(raw) as {
-      packages?: Record<string, { version?: string }>;
-      dependencies?: Record<string, { version?: string }>;
-    };
+  for (const directory of ancestorDirectories(cwd)) {
+    try {
+      const raw = await readFile(path.join(directory, "package-lock.json"), "utf8");
+      const lock = JSON.parse(raw) as {
+        packages?: Record<string, { version?: string }>;
+        dependencies?: Record<string, { version?: string }>;
+      };
 
-    return (
-      lock.packages?.[`node_modules/${packageName}`]?.version ??
-      lock.dependencies?.[packageName]?.version ??
-      null
-    );
-  } catch {
-    return null;
+      const version =
+        lock.packages?.[`node_modules/${packageName}`]?.version ??
+        lock.dependencies?.[packageName]?.version ??
+        null;
+
+      if (version) {
+        return version;
+      }
+    } catch {
+      continue;
+    }
+  }
+
+  return null;
+}
+
+function ancestorDirectories(start: string): string[] {
+  const directories: string[] = [];
+  let current = path.resolve(start);
+
+  while (true) {
+    directories.push(current);
+    const parent = path.dirname(current);
+    if (parent === current) {
+      return directories;
+    }
+    current = parent;
   }
 }

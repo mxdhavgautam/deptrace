@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import { parse } from "@babel/parser";
+import { parse, type ParserPlugin } from "@babel/parser";
 import type { Diagnostic, FileCategory, ImportKind, ImportRecord, TargetInfo } from "../types.js";
 import { tryParseSpecifier, typeDirectiveToPackage } from "../package/target.js";
 import { specifierMatchesTarget } from "../package/match.js";
@@ -502,11 +502,11 @@ function isBareSpecifier(specifier: string): boolean {
   return !specifier.startsWith(".") && !specifier.startsWith("/") && !specifier.startsWith("#");
 }
 
-function getParserPlugins(file: string): string[] {
-  const plugins = ["importAssertions", "decorators-legacy", "classProperties", "topLevelAwait"];
+function getParserPlugins(file: string): ParserPlugin[] {
+  const plugins: ParserPlugin[] = ["importAssertions", "decorators-legacy", "classProperties", "topLevelAwait"];
 
   if (/\.(ts|tsx|mts|cts)$/.test(file)) {
-    plugins.push("typescript");
+    plugins.push(file.endsWith(".d.ts") ? ["typescript", { dts: true }] : "typescript");
   }
 
   if (/\.(jsx|tsx)$/.test(file)) {

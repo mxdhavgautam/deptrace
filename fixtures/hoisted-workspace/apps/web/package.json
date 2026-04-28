@@ -1,0 +1,10 @@
+{
+  "name": "web",
+  "private": true,
+  "dependencies": {
+    "tool-pkg": "^2.3.0"
+  },
+  "scripts": {
+    "build": "tool-pkg build"
+  }
+}
