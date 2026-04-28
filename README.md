@@ -8,8 +8,10 @@ whether it appears in scripts/config, and what a cautious next step might be.
 
 The npm package is scoped because the unscoped `deptrace` name is already taken:
 
+## Installation
+
 ```bash
-npx @mxdhavgautam/deptrace
+npm i @mxdhavgautam/deptrace
 ```
 
 ## Usage
